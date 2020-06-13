@@ -6,8 +6,10 @@ engine = pyttsx3.init()
 def speaking(audio):
     engine.say(audio)
     engine.runAndWait()
+    
+audiotaking=input('Please tye what you want to say :-\n')
 
-rate.speaking("I am you AI assistant Rock")
+speaking(audiotaking)
 
 rate = engine.getProperty('rate')   # getting details of current speaking rate
 print (rate)                        #printing current voice rate
