@@ -5,6 +5,10 @@ import wikipedia
 import smtplib
 import webbrowser as wb
 import os
+import pyautogui #for the screenchot features
+import psutil # for cpu usage and battery info
+import pyjokes
+
 
 name="roshan"
 engine = pyttsx3.init()
@@ -94,8 +98,21 @@ def sendEmail(to,content):
     server.sendmail('abc@gmail.com',to,content)
     server.close()  #enter your gmail account
 
+#taking the screenshot
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save('') #give the path where to store the file
 
+#device usage
+def cpu():
+    usage = str(psutil.cpu_percent())  #information about the cpu
+    speaking("CPU usage is "+ usage)
+    battery_info = psutil.sensors_battery()
+    speaking("Your Battery status is at"+ battery_info.percent)
 
+#for jokes telling
+def jokes():
+    speaking(pyjokes.get_jokes)  #fetch jokes from the library
 
 
 if __name__ == "__main__":
@@ -159,6 +176,24 @@ if __name__ == "__main__":
             remember = open('data.txt','w')
             remember.write(remember_data)
             remember.close()
+#reading the data from the file
+        elif 'do you know anything' in query:
+            remember = open('data.txt','r')
+            speaking("You said me to remember that" + remember.read)
+
+#taking screenshot
+        elif 'screenshot' in query:
+            screenshot()
+            speaking("Screenshot have been taken")
+
+#device information
+        elif 'cpu' in query:
+            cpu()
+
+#jokes telling
+        elif 'jokes' in query:
+            jokes()
+
 
         elif 'offline' in query:
             quit()
